@@ -2,6 +2,9 @@ from subprocess import Popen, PIPE
 import os, psutil
 import sys
 
+def kill_process(pid):
+    os.kill(int(pid), 9)
+
 
 def suspend_process(pid):
     process = psutil.Process(int(pid))
