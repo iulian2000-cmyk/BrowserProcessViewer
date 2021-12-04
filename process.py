@@ -3,6 +3,10 @@ import os, psutil
 import sys
 
 
+def suspend_process(pid):
+    process = psutil.Process(int(pid))
+    process.suspend()
+
 def resume_process(pid):
     process = psutil.Process(int(pid))
     process.resume()
