@@ -32,6 +32,9 @@ def start_a_new_process(path_executabile, arguments):
 
 
 def mainApp():
+    if len(sys.argv) == 1 :
+        print("Give me some arguments !")
+        exit(0)
     if sys.argv[1] == "view":
         view_all_processes()
     if sys.argv[1] == "kill":
