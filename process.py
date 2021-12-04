@@ -2,6 +2,13 @@ from subprocess import Popen, PIPE
 import os, psutil
 import sys
 
+def view_all_processes():
+    process = Popen(['ps', 'aux'], stdout=PIPE, stderr=PIPE)
+    stdout, not_used = process.communicate()
+    for process in stdout.splitlines():
+        line_to_print = process.decode('utf-8')
+        print(line_to_print)
+
 def kill_process(pid):
     os.kill(int(pid), 9)
 
