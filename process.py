@@ -3,6 +3,13 @@ import os, psutil
 import sys
 
 
+def start_a_new_process(path_executabile, arguments):
+    arguments_cmd = " "
+    for arg in arguments:
+        arguments_cmd = arguments_cmd + arg + " "
+
+    print(os.popen(path_executabile + "  " + arguments_cmd).read())
+
 
 
 def mainApp():
