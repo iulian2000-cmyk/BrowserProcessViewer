@@ -3,6 +3,11 @@ import os, psutil
 import sys
 
 
+def resume_process(pid):
+    process = psutil.Process(int(pid))
+    process.resume()
+
+
 def start_a_new_process(path_executabile, arguments):
     arguments_cmd = " "
     for arg in arguments:
