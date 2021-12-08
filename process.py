@@ -2,12 +2,28 @@ from subprocess import Popen, PIPE
 import os, psutil
 import sys
 
+
 def view_all_processes():
-    process = Popen(['ps', 'aux'], stdout=PIPE, stderr=PIPE)
-    stdout, not_used = process.communicate()
-    for process in stdout.splitlines():
-        line_to_print = process.decode('utf-8')
-        print(line_to_print)
+    print()
+    list_processes_system = psutil.process_iter()
+    for process in list_processes_system:
+        try:
+            # Get process name & pid from process object.
+            processName = proc.name()
+            processID = proc.pid
+            processCMD = proc.cmdline()
+            processTime = proc.cpu_times()
+            processPPID = proc.ppid()
+            processMemory = proc.memory_percent()
+            print("PROCES NAME : " ,processName)
+            print("PID : ",processID)
+            print("PPID :",processPPID)
+            print("CMD : " ,processCMD)
+            print("CPU times : ", processTime)
+            print("Memory use :" , processMemory)
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+
 
 def kill_process(pid):
     os.kill(int(pid), 9)
@@ -16,6 +32,7 @@ def kill_process(pid):
 def suspend_process(pid):
     process = psutil.Process(int(pid))
     process.suspend()
+
 
 def resume_process(pid):
     process = psutil.Process(int(pid))
@@ -30,9 +47,8 @@ def start_a_new_process(path_executabile, arguments):
     print(os.popen(path_executabile + "  " + arguments_cmd).read())
 
 
-
 def mainApp():
-    if len(sys.argv) == 1 :
+    if len(sys.argv) == 1:
         print("Give me some arguments !")
         exit(0)
     if sys.argv[1] == "view":
